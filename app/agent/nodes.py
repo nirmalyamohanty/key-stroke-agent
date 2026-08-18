@@ -1,9 +1,5 @@
-from typing import TypedDict
-
-from langgraph.graph import StateGraph, END
-
-from app.EventModels.events import EventType, KeystrokeEvent
-from app.session.state import SessionState
+from app.EventModels.events import EventType
+from app.agent.state import KeystrokeGraphState
 
 
 # ==========================================
@@ -13,16 +9,6 @@ from app.session.state import SessionState
 PAUSE_THRESHOLD = 2.0
 LATENCY_THRESHOLD = 1.0
 BACKSPACE_RATIO_THRESHOLD = 0.2
-
-
-# ==========================================
-# LangGraph State
-# ==========================================
-
-class KeystrokeGraphState(TypedDict):
-
-    event: KeystrokeEvent
-    session_state: SessionState
 
 
 # ==========================================
@@ -187,96 +173,3 @@ def update_timestamp(state: KeystrokeGraphState):
     return {
         "session_state": session
     }
-
-
-# ==========================================
-# Build the LangGraph Agent
-# ==========================================
-
-workflow = StateGraph(KeystrokeGraphState)
-
-
-workflow.add_node(
-    "initialize_session",
-    initialize_session
-)
-
-workflow.add_node(
-    "process_event",
-    process_event
-)
-
-workflow.add_node(
-    "calculate_latency",
-    calculate_latency
-)
-
-workflow.add_node(
-    "detect_pause",
-    detect_pause
-)
-
-workflow.add_node(
-    "calculate_backspace_ratio",
-    calculate_backspace_ratio
-)
-
-workflow.add_node(
-    "calculate_struggle_score",
-    calculate_struggle_score
-)
-
-workflow.add_node(
-    "update_timestamp",
-    update_timestamp
-)
-
-
-# Entry point
-
-workflow.set_entry_point(
-    "initialize_session"
-)
-
-
-# Define agent flow
-
-workflow.add_edge(
-    "initialize_session",
-    "process_event"
-)
-
-workflow.add_edge(
-    "process_event",
-    "calculate_latency"
-)
-
-workflow.add_edge(
-    "calculate_latency",
-    "detect_pause"
-)
-
-workflow.add_edge(
-    "detect_pause",
-    "calculate_backspace_ratio"
-)
-
-workflow.add_edge(
-    "calculate_backspace_ratio",
-    "calculate_struggle_score"
-)
-
-workflow.add_edge(
-    "calculate_struggle_score",
-    "update_timestamp"
-)
-
-workflow.add_edge(
-    "update_timestamp",
-    END
-)
-
-
-# Compile the agent
-
-keystroke_graph = workflow.compile()

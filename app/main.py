@@ -2,8 +2,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
 from app.EventModels.events import KeystrokeEvent
 from app.session.state import SessionState
-from app.agent.keystroke_agent import keystroke_graph
-
+from app.agent.graph import keystroke_graph
 
 app = FastAPI()
 
