@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keystroke Agent — Real-Time Cognitive AI Engine</title>
+    
+    <!-- Google Fonts & Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="brand">
+                <div class="brand-logo">⚡</div>
+                <div class="brand-text">
+                    <h1>Keystroke Agent</h1>
+                    <p>AlgoFlow Cognitive AI Engine</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn" id="btnSmoothDemo" title="Simulate smooth fluid typing">
+                    ⌨️ Smooth Typing
+                </button>
+                
+                <button class="btn btn-warning" id="btnFrictionDemo" title="Simulate typing struggle to trigger RAG AI assistance">
+                    💥 Simulate Struggle
+                </button>
+                
+                <button class="btn" id="btnReset" title="Reset all telemetry metrics">
+                    🔄 Reset
+                </button>
+
+                <div class="connection-badge">
+                    <div id="statusDot" class="status-dot"></div>
+                    <span id="connectionStatus">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN WORKSPACE -->
+        <main class="main-content">
+
+            <!-- LEFT: MONACO EDITOR PANEL -->
+            <section class="editor-panel">
+                <div class="panel-header">
+                    <div class="tab-group">
+                        <div class="tab active" id="tabPython">Python 3</div>
+                        <div class="tab" id="tabCpp">C++20</div>
+                        <div class="tab" id="tabJava">Java</div>
+                    </div>
+                    <div class="editor-info">
+                        <span id="charCountDisplay">0 chars</span>
+                        <span>•</span>
+                        <span>Monaco Editor</span>
+                    </div>
+                </div>
+
+                <div id="editor"></div>
+            </section>
+
+            <!-- RIGHT: AGENT TELEMETRY SIDEBAR -->
+            <aside class="sidebar">
+
+                <!-- STRUGGLE SCORE GAUGE CARD -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>Cognitive Struggle Score</span>
+                        <span>LIVE</span>
+                    </div>
+
+                    <div class="struggle-score-container">
+                        <div class="struggle-score-header">
+                            <div id="struggleScore" class="struggle-score-value">0.0</div>
+                            <div id="struggleStatusTag" class="struggle-status-tag">Fluid Flow</div>
+                        </div>
+
+                        <div class="progress-bar-bg">
+                            <div id="struggleProgressBar" class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- METRICS GRID -->
+                <div class="card">
+                    <div class="card-title">Telemetry Analytics</div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-label">Keystrokes</span>
+                            <span id="keystrokes" class="metric-val highlight-cyan">0</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">Backspace %</span>
+                            <span id="backspaceRatio" class="metric-val">0%</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">Backspaces</span>
+                            <span id="backspaces" class="metric-val">0</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">Deletes</span>
+                            <span id="deletes" class="metric-val">0</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">Latency</span>
+                            <span id="latency" class="metric-val highlight-purple">--</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">Hesitation Pause</span>
+                            <span id="pause" class="metric-val">No</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">Chars Inserted</span>
+                            <span id="inserted" class="metric-val">0</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">Chars Erased</span>
+                            <span id="deleted" class="metric-val">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIVE EVENT TICKER -->
+                <div class="card">
+                    <div class="card-title">Recent Telemetry Event</div>
+                    <div class="event-ticker">
+                        <span>Event:</span>
+                        <span id="eventStatus" class="event-ticker-tag">Awaiting keystrokes...</span>
+                    </div>
+                </div>
+
+                <!-- RAG SUGGESTION CARD -->
+                <div id="suggestionBox" class="card suggestion-card">
+                    <div class="suggestion-header">
+                        <span>💡</span>
+                        <span>Contextual AI Guidance (RAG)</span>
+                    </div>
+                    <div id="suggestionText" class="suggestion-body">
+                        Retrieving algorithmic hints based on detected struggle pattern...
+                    </div>
+                </div>
+
+            </aside>
+
+        </main>
+
+    </div>
+
+    <!-- Monaco loader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
+
+    <!-- Application JavaScript -->
+    <script src="app.js"></script>
+
+</body>
+</html>
